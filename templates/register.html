@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <h1>User Registration</h1>
+            <form method="POST" action="{{ url_for('register') }}" class="form">
+                {{ form.hidden_tag() }}
+                <h1>Register</h1>
+                <div class="input-group">
+                    {{ form.fname.label }} {{ form.fname() }}
+                </div>
+                <div class="input-group">
+                    {{ form.lname.label }} {{ form.lname() }}
+                </div>
+                <div class="input-group">
+                    {{ form.contact.label }} {{ form.contact() }}
+                </div>
+                <div class="input-group">
+                    {{ form.email.label }} {{ form.email() }}
+                </div>
+                <div class="input-group">
+                    {{ form.password.label }} {{ form.password() }}
+                </div>
+                {{ form.submit(class="btn") }}
+            </form>
+            
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var firstName = document.getElementById('fname').value;
+            var lastName = document.getElementById('lname').value;
+            var contact = document.getElementById('contact').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            document.getElementById('passwordError').innerHTML = '';
+            document.getElementById('contactError').innerHTML = '';
+
+            // Validate contact
+            if (contact === ''){
+                document.getElementById('contactError').innerHTML = 'Please enter your contact number.';
+                return false;
+            }
+            if (contact.length !== 10) {
+                document.getElementById('contactError').innerHTML = 'Contact number must be 10 digits.';
+                return false;
+            }
+            // Validate password
+            if (password === '' ) {
+                document.getElementById('passwordError').innerHTML = 'Password is required.';
+                return false;
+            }
+            if (password.length < 8 ) {
+                document.getElementById('passwordError').innerHTML = 'Password must be at least 8 characters.';
+                return false;
+            }
+            if (password.length > 8 ) {
+                document.getElementById('passwordError').innerHTML = 'Password cannot exceed 8 characters.';
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
